@@ -23,6 +23,13 @@ class Helper_project:
             self.project_cache.append(Project(name=name, description=description))
         return list(self.project_cache)
 
+    def delete_project(self, project):
+        wd = self.app.wd
+        self.open_manage_project()
+        wd.find_element_by_xpath("//a[contains(text(), '%s')]" % project.name).click()
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+
 
 
     def count(self):
@@ -41,14 +48,14 @@ class Helper_project:
         wd.find_element_by_xpath(".//a[contains(text(),'Manage Projects')]").click()
 
 
-    def open_create_new_project(self):
+    def open_form_create_new_project(self):
         wd = self.app.wd
         self.open_manage_project()
         wd.find_element_by_xpath("//input[@value='Create New Project']").click()
 
     def create_new_project(self, project):
         wd = self.app.wd
-        self.open_create_new_project()
+        self.open_form_create_new_project()
         self.fill_project_form(project)
         wd.find_element_by_css_selector("input[class='button'][type='submit']").click()
 
