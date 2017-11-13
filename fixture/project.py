@@ -39,11 +39,14 @@ class Helper_project:
 
     def open_mantis_page(self):
         wd = self.app.wd
-        wd.current_url.endswith("http://localhost:8080/mantisbt-1.2.20/my_view_page.php")
+        if not wd.current_url.endswith("http://localhost:8080/mantisbt-1.2.20/my_view_page.php"):
+            wd.get("http://localhost:8080/mantisbt-1.2.20/my_view_page.php")
 
 
     def open_manage_project(self):
         wd = self.app.wd
+        self.open_mantis_page()
+        self.app.session.login()
         wd.find_element_by_xpath(".//a[contains(text(),'Manage')]").click()
         wd.find_element_by_xpath(".//a[contains(text(),'Manage Projects')]").click()
 
